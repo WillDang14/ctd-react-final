@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useReducer } from 'react';
+import { useState, useEffect, useCallback, useReducer } from 'react';
 
 import './App.css';
 import styles from './App.module.css';
@@ -29,12 +29,10 @@ const token = `Bearer ${import.meta.env.VITE_PAT}`;
 
 /* ====================================================================================== */
 function App() {
-  // week12
   const [title, setTitle] = useState('Todo List');
 
   const [todoState, dispatch] = useReducer(todosReducer, initialTodosState);
 
-  // Week9
   const encodeUrl = useCallback(() => {
     let sortQuery = `sort[0][field]=${todoState.sortField}&sort[0][direction]=${todoState.sortDirection}`;
 
@@ -48,7 +46,6 @@ function App() {
   }, [todoState.sortField, todoState.sortDirection, todoState.queryString]);
   // console.log('encodeUrl = ', encodeUrl());
 
-  // week12
   const location = useLocation();
 
   ///////////////////////////////////////////////////////////////////////////////////

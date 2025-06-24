@@ -13,7 +13,6 @@
   backdrop-filter: blur(10.5px);
   -webkit-backdrop-filter: blur(10.5px);
 
-  /* border: 2px solid rgba(255, 255, 255, 0.31); */
   border: 2px solid rgba(255, 255, 255, 0.51);
 }
 
