@@ -76,6 +76,7 @@ In airtable account user need to do these steps:
 2.  Clone this project to local directory
 
 3.  In local directory open VSCode, open terminal and run command:
+
         **npm install**
 
 VSCode will install all dependencies
@@ -92,6 +93,7 @@ VSCode will install all dependencies
         .env
 
 6.  Open terminal and run command:
+
         **npm run dev**
 
 to run the program.
