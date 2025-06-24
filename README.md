@@ -76,23 +76,23 @@ In airtable account user need to do these steps:
 2.  Clone this project to local directory
 
 3.  In local directory open VSCode, open terminal and run command:
-
-        **npm install**
+    **npm install**
 
 VSCode will install all dependencies
 
-4.  Create file .env.local in local directory which contain:
-    VITE_PAT = token which just save above
-    VITE_BASE_ID = base ID which just saved above
-    VITE_TABLE_NAME = Todos
+4.  Create file ".env.local" in local directory which contain:
+
+        VITE_PAT = token which just save above
+        VITE_BASE_ID = base ID which just saved above
+        VITE_TABLE_NAME = Todos
 
 5.  Check again in file ".gitignore" whether it has these line:
-    .env.local
-    .env
+
+        .env.local
+        .env
 
 6.  Open terminal and run command:
-
-        **npm run dev**
+    **npm run dev**
 
 to run the program.
 
