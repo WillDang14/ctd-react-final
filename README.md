@@ -40,7 +40,7 @@ In this app, user can:
 
 # Install and Run (http://localhost:5173/)
 
-1. Before installing and run the project, user need to create an account on [airtable](https://airtable.com/)
+1. Before installing and run the project, user need to create an account on <a href="https://airtable.com/" target="_blank">airtable</a>
 
 This is the place for saving data on onlive server.
 
