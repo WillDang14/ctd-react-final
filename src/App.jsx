@@ -3,8 +3,8 @@ import { useState, useEffect, useCallback, useMemo, useReducer } from 'react';
 import './App.css';
 import styles from './App.module.css';
 
-import fetchOptions from './shared/FetchOptions'; // for Stretch Goals: Refactor for Reusable Code ==>> Week 7
-import fetchPayload from './shared/FetchPayload'; // for Stretch Goals: Refactor for Reusable Code ==>> Week 7
+import fetchOptions from './shared/FetchOptions';
+import fetchPayload from './shared/FetchPayload';
 
 import {
   reducer as todosReducer,
@@ -32,9 +32,7 @@ function App() {
   // week12
   const [title, setTitle] = useState('Todo List');
 
-  // useReducer week11
   const [todoState, dispatch] = useReducer(todosReducer, initialTodosState);
-  // console.log(++n, ' todoState = ', todoState);
 
   // Week9
   const encodeUrl = useCallback(() => {
@@ -48,15 +46,13 @@ function App() {
 
     return encodeURI(`${url}?${sortQuery}${searchQuery}`);
   }, [todoState.sortField, todoState.sortDirection, todoState.queryString]);
-  console.log('encodeUrl = ', encodeUrl());
+  // console.log('encodeUrl = ', encodeUrl());
 
   // week12
   const location = useLocation();
 
   ///////////////////////////////////////////////////////////////////////////////////
   useEffect(() => {
-    // console.log('useEffect start!');
-
     //
     const fetchTodos = async () => {
       dispatch({ type: todoActions.fetchTodos });
@@ -65,7 +61,6 @@ function App() {
 
       try {
         const resp = await fetch(encodeUrl(), options);
-        // console.log('useEffect resp = ', resp);
 
         if (!resp.ok) {
           const status = resp.status;
@@ -83,7 +78,7 @@ function App() {
         }
 
         const { records } = await resp.json();
-        console.log('useEffect Airtable records = ', records);
+        // console.log('useEffect Airtable records = ', records);
 
         dispatch({
           type: todoActions.loadTodos,
@@ -113,14 +108,11 @@ function App() {
       setTitle('About');
     } else {
       setTitle('Not Found');
-      // setTitle('');
     }
   }, [location]);
 
   ///////////////////////////////////////////////////////////////////////////////////
   async function handleAddTodo(newTodo) {
-    // console.log('handleAddTodo Start!');
-
     const payload = fetchPayload(newTodo, false);
 
     const options = fetchOptions('POST', token, payload);
@@ -132,7 +124,6 @@ function App() {
 
       if (!resp.ok) {
         const status = resp.status;
-        // console.log('status = ', status);
 
         const { error } = await resp.json();
 
@@ -144,15 +135,8 @@ function App() {
       }
 
       // return the todo which have just added
-      // const data = await resp.json();
-      // console.log('data = ', data);
-
-      // ====================================== //
-      // need to call API GET again to get all todos with sorted
-      const respNew = await fetch(encodeUrl(), fetchOptions('Get', token));
-
-      const { records } = await respNew.json();
-      // console.log('handleAddTodo records = ', records);
+      const { records } = await resp.json();
+      // console.log('new records = ', records);
 
       dispatch({
         type: todoActions.addTodo,
@@ -175,9 +159,7 @@ function App() {
 
   ///////////////////////////////////////////////////////////////////////////////////
   async function completeTodo(todoId) {
-    //
     const originalTodo = todoState.todoList.find((todo) => todo.id === todoId);
-    // console.log('originalTodo = ', originalTodo);
 
     const payload = fetchPayload(
       originalTodo.title,
@@ -187,7 +169,6 @@ function App() {
 
     const options = fetchOptions('PATCH', token, payload);
 
-    //
     try {
       dispatch({ type: todoActions.startRequest });
 
@@ -195,7 +176,6 @@ function App() {
 
       if (!resp.ok) {
         const status = resp.status;
-        // console.log('status = ', status);
 
         const { error } = await resp.json();
 
@@ -261,7 +241,6 @@ function App() {
 
       if (!resp.ok) {
         const status = resp.status;
-        // console.log('status = ', status);
 
         const { error } = await resp.json();
 
@@ -326,7 +305,6 @@ function App() {
 
       if (!resp.ok) {
         const status = resp.status;
-        // console.log('status = ', status);
 
         const { error } = await resp.json();
 

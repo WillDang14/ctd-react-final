@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-/* =========================================================== */
 
+/* =========================================================== */
 function About() {
   return (
     <>
@@ -15,6 +15,9 @@ const StyledParagraph = styled.p`
   margin: 4rem 0;
 
   font-size: 2rem;
+
+  padding: 5px;
 `;
+
 /* =========================================================== */
 export default About;

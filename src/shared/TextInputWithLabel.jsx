@@ -6,7 +6,6 @@ function TextInputWithLabel({ labelText, elementId, ref, value, onChange }) {
     <>
       <label htmlFor={elementId}>{labelText}</label>
 
-      {/* <input */}
       <StyledInput
         type="text"
         id={elementId}

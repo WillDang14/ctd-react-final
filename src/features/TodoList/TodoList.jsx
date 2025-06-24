@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 
 import TodoListItem from './TodoListItem';
 
@@ -7,11 +7,6 @@ import styles from './TodoList.module.css';
 import { useSearchParams, useNavigate } from 'react-router';
 
 /* ============================================= */
-/* 
-Chú ý là không dùng "filteredTodoList" nữa mà vẫn dùng "todoList"
-
-để show hết nội dung
-*/
 function TodoList({
   todoList,
   onCompleteTodo,
@@ -21,69 +16,37 @@ function TodoList({
   filterTodos,
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const navigate = useNavigate();
 
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
-  // const filteredTodoList = todoList.filter((todo) => !todo.isCompleted);
+  function filterTodoStatus(value) {
+    switch (value) {
+      case 'working': {
+        return todoList.filter((todo) => !todo.isCompleted);
+      }
+
+      case 'done': {
+        return todoList.filter((todo) => todo.isCompleted);
+      }
+
+      default:
+        return todoList;
+    }
+  }
+
+  const filteredTodoList = filterTodoStatus(filterTodos);
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
   const indexOfFirstTodo = (currentPage - 1) * itemsPerPage;
 
-  // tự thêm vô
-  const indexOfLastTodo = currentPage * itemsPerPage; // this is not mentioned in instruction
+  const indexOfLastTodo = currentPage * itemsPerPage;
 
-  // const totalPages = Math.ceil(filteredTodoList.length / itemsPerPage);
-  const totalPages = Math.ceil(todoList.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredTodoList.length / itemsPerPage);
 
-  // const currentEntries = filteredTodoList.slice(
-  //   indexOfFirstTodo,
-  //   indexOfLastTodo
-  // );
-  // console.log('filterTodos = ', filterTodos);
-
-  // const currentEntries = todoList.slice(indexOfFirstTodo, indexOfLastTodo);
-
-  // =====================================
-  // let currentEntries;
-  // if (filterTodos === 'all') {
-  //   currentEntries = todoList.slice(indexOfFirstTodo, indexOfLastTodo);
-  //   //
-  // } else if (filterTodos === 'working') {
-  //   const filteredWorking = todoList.filter((todo) => !todo.isCompleted);
-
-  //   currentEntries = filteredWorking.slice(indexOfFirstTodo, indexOfLastTodo);
-  //   //
-  // } else if (filterTodos === 'done') {
-  //   const filteredDone = todoList.filter((todo) => todo.isCompleted);
-
-  //   currentEntries = filteredDone.slice(indexOfFirstTodo, indexOfLastTodo);
-  // }
-  // =====================================
-  function filterTodoStatus(value) {
-    switch (value) {
-      case 'all':
-        return todoList;
-
-      case 'working': {
-        const filteredWorking = todoList.filter((todo) => !todo.isCompleted);
-
-        return filteredWorking;
-      }
-
-      case 'done': {
-        const filteredDone = todoList.filter((todo) => todo.isCompleted);
-
-        return filteredDone;
-      }
-
-      default:
-        return [];
-    }
-  }
-
-  const currentEntries = filterTodoStatus(filterTodos).slice(
+  const currentEntries = filteredTodoList.slice(
     indexOfFirstTodo,
     indexOfLastTodo
   );
@@ -94,8 +57,6 @@ function TodoList({
         navigate('/');
       }
     }
-
-    //
   }, [currentPage, totalPages, navigate]);
 
   const handlePreviousPage = () => {
@@ -127,6 +88,11 @@ function TodoList({
       <ul className={styles.list_container}>
         {isLoading ? (
           <p>Todo list loading...</p>
+        ) : todoList.length === 0 ? (
+          <div>
+            <p>Todo list is empty!</p>
+            <p>Need to add new tasks to list.</p>
+          </div>
         ) : (
           currentEntries.map((todo) => (
             <TodoListItem
@@ -146,7 +112,7 @@ function TodoList({
         </button>
 
         <span>
-          Page {currentPage} of {totalPages}
+          Page {currentPage} of {totalPages === 0 ? '1' : totalPages}
         </span>
 
         <button onClick={handleNextPage} disabled={currentPage === totalPages}>

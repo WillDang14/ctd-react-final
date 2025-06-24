@@ -71,7 +71,7 @@ export function reducer(state = initialState, action) {
         return todo;
       });
 
-      console.log('loadTodos fetchedRecords', fetchedRecords);
+      // console.log('loadTodos fetchedRecords', fetchedRecords);
 
       return {
         ...state,
@@ -96,29 +96,25 @@ export function reducer(state = initialState, action) {
     }
 
     case actions.addTodo: {
-      const fetchedRecords = action.records.map((record) => {
-        //
-        const todo = {
-          id: record.id,
-          title: record.fields.title,
-          isCompleted: record.fields.isCompleted,
-          createdTime: new Date(record.fields.createdTime).toLocaleString(),
-          lastModified: new Date(record.fields.lastModified).toLocaleString(),
-        };
-
-        if (!todo.isCompleted) {
-          todo.isCompleted = false;
-        }
-
-        return todo;
-      });
-
-      // console.log('addTodo fetchedRecords = ', fetchedRecords);
+      // Added for Final project
+      // New created todo will always stay on the top on Array
+      // regardless sorting/filtering
+      const updatedTodo = {
+        id: action.records[0].id,
+        title: action.records[0].fields.title,
+        isCompleted: !action.records[0].fields.isCompleted ? false : true,
+        createdTime: new Date(
+          action.records[0].fields.createdTime
+        ).toLocaleString(),
+        lastModified: new Date(
+          action.records[0].fields.lastModified
+        ).toLocaleString(),
+      };
 
       return {
         ...state,
         isSaving: false,
-        todoList: [...fetchedRecords],
+        todoList: [updatedTodo, ...state.todoList],
       };
     }
 
