@@ -38,6 +38,12 @@ In this app, user can:
 
             b - choosing an increasing step of 1
 
+# Install and Run (http://localhost:5173/)
+
+1. Before installing and run the project, user need to create an account on [airtable](https://airtable.com/)
+
+This is the place for saving data on onlive server.
+
 ================================================
 
 README.md which includes:
