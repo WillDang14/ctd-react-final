@@ -56,22 +56,39 @@ In airtable account user need to do these steps:
 
     e) Under "Introduction" heading, there is line "The ID of this base is xxxxx"
 
-    f) Copy only "xxxxx" and save it some where with variable name "VITE_BASE_ID = xxxxx"
+    f) Copy only "xxxxx" and save it somewhere with variable name "VITE_BASE_ID = xxxxx"
 
-    g) Click on profile picture to open menu
+    g) In "Untitled Base" => "Todos" table => Update the first field name so that it reads "title" instead of "Title"
 
-    h) Select "Builder hub"
+    h) Delete the other fields
 
-    i) Select "Create new token"
+    i) Now add a field name "isCompleted" with "Checkbox" type
 
-    j) Give the token a name that you'll remember
+    j) Add a new field name "createdTime" with some setting:
+        => field type => "Date"
+        => Date format => Local and turn on "Include time"
+        => Time format => 24 hour and turn on "Use the same time zone for all collaborators"
+        => Time zone => GMT/UTC
+        => Default option => turn on "Default to"
 
-    k) Click "Add a scope" and choose these items ==>> "data.records:read" and "data.records.write"
+    k) Add a new field name "lastModified" with some setting:
+        => field type => "Last modified time"
+        => Fields => Choose "All editable fields"
 
-    l) Under the "Access" heading. Hit "Add a base" and choose your new one.
-    ==>> or can choose "All current and future bases in this workspace"
+    l) Click on profile picture to open menu
 
-    m) Hit "Save changes" and copy the "token" value that shows on the next screen (save it some where with name "VITE_PAT=token")
+    m) Select "Builder hub"
+
+    n) Select "Create new token"
+
+    o) Give the token a name that you'll remember
+
+    p) Click "Add a scope" and choose these items ==>> "data.records:read" and "data.records.write"
+
+    q) Under the "Access" heading. Hit "Add a base" and choose your new one.
+       ==>> or can choose "All current and future bases in this workspace"
+
+    r) Hit "Save changes" and copy the "token" value that shows on the next screen (save it somewhere with name "VITE_PAT=token")
 
 2.  Clone this project to local directory
 
