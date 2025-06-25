@@ -100,7 +100,7 @@ VSCode will install all dependencies
 
 4.  Create file ".env.local" in local directory which contain:
 
-        VITE_PAT = token which just save above
+        VITE_PAT = token which just saved above
         VITE_BASE_ID = base ID which just saved above
         VITE_TABLE_NAME = Todos
 
